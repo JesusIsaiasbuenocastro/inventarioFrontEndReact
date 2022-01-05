@@ -1,5 +1,4 @@
 
-
 const Inventario = () => {
     return (  
         <div>

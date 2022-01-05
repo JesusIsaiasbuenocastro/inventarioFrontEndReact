@@ -1,10 +1,9 @@
-import {Outlet} from 'react-router-dom';
+
 import CatalogoMarcas from "./catalogoMarcas";
 
 const NavBar = () => {
 
     return(
-        <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="/">Agencia de automoviles</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,8 +26,6 @@ const NavBar = () => {
                 </ul>
             </div>
         </nav>
-         <Outlet/>
-         </div>
     );
 }
 
