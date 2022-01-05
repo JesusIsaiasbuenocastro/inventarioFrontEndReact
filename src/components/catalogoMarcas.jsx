@@ -1,9 +1,12 @@
 import React from 'react';
 
+
 const CatalogoMarcas = () =>{
 
     return(
-        <h1>Desde catalogoMarcas</h1>
+        <div>
+            <h1>Desde catalogoMarcas</h1>
+        </div>
     );
 
 }
