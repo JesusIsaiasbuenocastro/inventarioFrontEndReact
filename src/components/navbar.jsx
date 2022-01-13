@@ -12,15 +12,15 @@ const NavBar = () => {
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
                 <li className="nav-item active">
-                    <a className="nav-link" href="/Inventario">Inventario <span class="sr-only">(current)</span></a>
+                    <a className="nav-link" href="/inventario">Inventario <span class="sr-only">(current)</span></a>
                 </li>
                 <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
                     Catalogo
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a className="dropdown-item" href='/CatalogoMarcas'>Marcas</a>
-                        <a className="dropdown-item" href='/catalogoModelos'>Modelos</a>
+                        <a className="dropdown-item" href='/catalogomarcas'>Marcas</a>
+                        <a className="dropdown-item" href='/catalogomodelos'>Modelos</a>
                     </div>
                 </li>
                 </ul>
