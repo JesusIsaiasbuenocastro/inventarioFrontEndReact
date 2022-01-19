@@ -1,16 +1,16 @@
 import {Fragment} from 'react';
 import {
-  Router,
   BrowserRouter,
   Routes,
   Route
 } from "react-router-dom";
 import Layout from './components/layout/layout';
-import CatalogoMarcas from './components/catalogoMarcas';
-import CatalogoModelos from './components/catalogoModelos';
-import Inventario from './components/inventario';
+import CatalogoMarcas from './components/marcas/catalogoMarcas';
+import CatalogoModelos from './components/modelos/catalogoModelos';
+import Inventario from './components/inventario/inventario';
 import Login from './components/login/login';
 import NuevoUsuario from './components/login/NuevoUsuario';
+
 
 function App() {
   return (

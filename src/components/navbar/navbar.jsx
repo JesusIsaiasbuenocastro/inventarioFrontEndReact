@@ -1,5 +1,5 @@
 
-import CatalogoMarcas from "./catalogoMarcas";
+import CatalogoMarcas from "../marcas/catalogoMarcas";
 
 const NavBar = () => {
 
