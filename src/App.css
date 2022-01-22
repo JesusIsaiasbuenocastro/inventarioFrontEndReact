@@ -3,6 +3,10 @@ html {
   }
   body {
     margin: 0;
-    padding: 0;
+    padding-bottom: 15px;
     min-height: 80px;
   }
+
+  .table-hover thead tr:hover th, .table-hover tbody tr:hover td {
+    background-color: #DEFBFC;
+}

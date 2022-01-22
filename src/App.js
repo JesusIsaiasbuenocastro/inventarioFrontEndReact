@@ -1,11 +1,13 @@
-import {Fragment} from 'react';
+import React,{Fragment} from 'react';
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Switch
 } from "react-router-dom";
 import Layout from './components/layout/layout';
 import CatalogoMarcas from './components/marcas/catalogoMarcas';
+import MarcaAcciones from './components/marcas/marcaAcciones';
 import CatalogoModelos from './components/modelos/catalogoModelos';
 import Inventario from './components/inventario/inventario';
 import Login from './components/login/login';
@@ -26,6 +28,10 @@ function App() {
             <Route path='/catalogomarcas' element={<Layout/>}>
               <Route index element ={<CatalogoMarcas/>} />
             </Route>
+            <Route path='/marcaacciones/:idMarca' element={<Layout/>}>
+              <Route index element ={<MarcaAcciones/>} />
+              <Route path =":idMarca" element ={<MarcaAcciones/>}/>
+            </Route>
             
             <Route path='/inventario' element={<Layout/>}>
               <Route index element ={<Inventario/>} />
@@ -34,6 +40,7 @@ function App() {
               <Route index element ={<NuevoUsuario/>} />
             </Route>
         </Routes>
+      
       </BrowserRouter>
   );
 }

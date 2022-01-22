@@ -1,9 +1,9 @@
 import React,{ useState,useEffect } from 'react'; 
 
-import  {useNavigate   } from 'react-router-dom'
+import  { useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Header from '../header/header';
 import Logo from '../../assets/Inventario.png';
 import Error from '../error/error';
@@ -12,7 +12,6 @@ import Error from '../error/error';
 const Form = styled.form`
     
     font-size: .8rem;
-    animation-duration: .5s;
     border: PowderBlue 1px solid;
     border-radius: 20px;
     padding: .5rem 2rem;

@@ -1,46 +1,117 @@
-import React,{Fragment} from 'react';
+import {Fragment, useEffect, useState} from 'react';
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import { useNavigate  } from 'react-router-dom';
+import MarcaTable from './marcaTable';
+import Spinner from '../spinner/spinner';
 
+const StyleHeader = styled.label`
+    
+    font-size: 1.5rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    text-align: center;
+`;
+
+const StyleTable = styled.table`
+    
+    font-size: .8rem;
+    border-radius: 20px;
+    width: 50rem;
+    box-shadow: 7px 7px 15px PowderBlue; 
+    margin-top: 1rem;
+    text-align: center;
+
+
+`;
+
+const StyleDivEncabezado = styled.div`
+    width: 50rem;
+`;
+
+const StyleBtnAgregar = styled.button`
+    margin-left: 7rem
+`;
 
 const CatalogoMarcas = () =>{
+   
+    const [marcas,setMarcas] = useState([{}]);
+    const [cargando, setCargando] = useState(true);
+    const navigate = useNavigate();
 
-
+    const agregarModificarMarca = (e) => {
+        e.preventDefault();
+        navigate('/marcaacciones/-1');
+    }
     
-    return(
-        <Fragment>
-            <h4>Catalogo de marcas</h4>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                </tbody>
-            </table>
-        </Fragment>
-    );
+    useEffect(()=>{
+        const consultarMarcas =  async () =>{
+            try{
+                let respuesta;
+                const url =  'http://localhost:3004/marca';
+        
+                respuesta = await fetch(url);
+                const response = await respuesta.json();
+                setMarcas(response);
+            }catch(error){
+                console.log(error);
+            }
+        };
+        consultarMarcas();
+        setTimeout(() => {
+            setCargando(!cargando);
+        }, 1000);
+        
+    },[]);
 
+    return(
+        <>
+            {cargando 
+                ? 
+                <Spinner />
+            
+            :
+
+                <Fragment>
+                    <StyleDivEncabezado className='container'>
+                        <div className='row'>
+                            <div className='col-8'>    
+                                <StyleHeader>Catálogo de marcas</StyleHeader>
+                            </div>
+                            <div className='col-4'>   
+                                <StyleBtnAgregar className='btn btn-secondary'
+                                    onClick={agregarModificarMarca} > 
+                                    <FontAwesomeIcon icon={faPlusCircle} className='mr-2' />
+                                    Agregar
+                                </StyleBtnAgregar>
+                            </div>
+                        </div>
+                    </StyleDivEncabezado>
+                    <StyleTable className="container table table-borderless table-hover ">
+                    
+                        <thead height="10" >
+                            <tr>
+                                <th width="20" >ID</th>
+                                <th width="100" >Marca</th>
+                                <th width="20">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                marcas.map( marca => (
+                                    <MarcaTable 
+                                        key={marca.id}
+                                        marca={marca}
+                                    />
+                                ))
+                            }
+                        </tbody>
+                    </StyleTable>
+                </Fragment>
+            }
+        </>
+    );
 }
 
 export default CatalogoMarcas;

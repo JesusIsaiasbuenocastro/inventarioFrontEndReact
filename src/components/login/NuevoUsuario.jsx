@@ -68,7 +68,7 @@ const NuevoUsuario = () => {
     //Extraer los valores
     const {correo,confirmacionCorreo,password,nombre} = registro;
     const {texto} = mensaje;
-    
+
     //useEffect
     useEffect(() => {
         if(autenticado){
@@ -93,11 +93,35 @@ const NuevoUsuario = () => {
     }
     guardarError(false);
     guardarAutenticado(true);
+    guardarRegistro();
 }
+
+const guardarRegistro=  async () =>{
+    try{
+
+        let request;
+        const url =  'http://localhost:3004/usuarios';
+
+        request = await fetch(url,{
+            method:'POST',
+            body: JSON.stringify (registro),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const resultado = await request.json();
+        console.log(request);
+        console.log(resultado);
+
+    }catch(error){
+        console.log(error);
+    }
+}
+
 return ( <>
     <Header>
         </Header>
-        
     <Form 
         onSubmit={onSubmitForm}
     > 

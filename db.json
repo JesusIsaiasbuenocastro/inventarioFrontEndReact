@@ -1,0 +1,63 @@
+{
+  "usuarios": [
+    {
+      "correo": "correo@correo.com",
+      "confirmacionCorreo": "correo@correo.com",
+      "password": "123123",
+      "nombre": "Jesusi",
+      "id": 1
+    }
+  ],
+  "inventario": [],
+  "marca": [
+    {
+      "nombre": "Honda",
+      "id": 1
+    },
+    {
+      "nombre": "Ford 2",
+      "id": 2
+    },
+    {
+      "nombre": "Kia",
+      "id": 3
+    },
+    {
+      "nombre": "Nissan",
+      "id": 5
+    },
+    {
+      "nombre": "BMW",
+      "id": 6
+    },
+    {
+      "nombre": "Acura",
+      "id": 7
+    },
+    {
+      "nombre": "volkswagen",
+      "id": 8
+    },
+    {
+      "nombre": "volkswagen 3",
+      "id": 9
+    }
+  ],
+  "modelo": [
+    {
+      "nombre": "Accord",
+      "marca": 1,
+      "id": 1
+    },
+    {
+      "nombre": "Civic",
+      "marca": 1,
+      "id": 2
+    },
+    {
+      "nombre": "Altima",
+      "marca": 5,
+      "id": 3
+    }
+  ]
+}

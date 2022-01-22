@@ -4,7 +4,7 @@ const StyleDivEncabezado = styled.div`
     background-color: #33B3FF;
     padding: 2rem 0;
     text-align: center;
-    width: 80rem;
+   
     box-shadow: 10px 10px 15px PowderBlue; 
 `;
 const StyleH3 = styled.h3`
