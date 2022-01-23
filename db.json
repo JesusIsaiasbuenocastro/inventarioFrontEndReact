@@ -11,7 +11,7 @@
   "inventario": [],
   "marca": [
     {
-      "nombre": "Honda",
+      "nombre": "HONDA 82",
       "id": 1
     },
     {
@@ -35,29 +35,54 @@
       "id": 7
     },
     {
-      "nombre": "volkswagen",
+      "nombre": "volkswagen 8",
       "id": 8
     },
     {
-      "nombre": "volkswagen 3",
+      "nombre": "Honda 2",
       "id": 9
     }
   ],
   "modelo": [
     {
+      "tipo": 2,
       "nombre": "Accord",
       "marca": 1,
       "id": 1
     },
     {
+      "tipo": 1,
       "nombre": "Civic",
       "marca": 1,
       "id": 2
     },
     {
+      "tipo": 1,
       "nombre": "Altima",
       "marca": 5,
+      "id": 2
+    }
+  ],
+  "tipo": [
+    {
+      "nombre": "Deportivo",
+      "id": 1
+    },
+    {
+      "nombre": "SUV",
+      "id": 2
+    },
+    {
+      "nombre": "Sedán",
       "id": 3
+    },
+    {
+      "nombre": "Pick Up",
+      "id": 4
+    },
+    {
+      "nombre": "Cross Over",
+      "id": 5
     }
   ]
 }

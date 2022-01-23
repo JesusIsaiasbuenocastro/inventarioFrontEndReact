@@ -6,6 +6,7 @@ import { useNavigate,useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Spinner from '../spinner/spinner';
+import Error from '../error/error';
 
 const StyleForm = styled.form`
     
@@ -49,6 +50,7 @@ const Marca = (props) => {
     const {idMarca} = useParams();
     const navigate = useNavigate();
 
+    const [error , setError] = useState(false);
     const [esNuevo , guardarEsNuevo] = useState(false);
     const [marca, guardarMarca] = useState({
         id: '',
@@ -84,11 +86,6 @@ const Marca = (props) => {
         obtenerDatosMarca();
     },[]);
 
-
-    
-
-    
-
     //useState de para guardar la marca
     const actualizarMarca = (e) => {
         e.preventDefault();
@@ -102,6 +99,18 @@ const Marca = (props) => {
     //Guardar registro
     const guardarRegistro = async (e)  => {
         e.preventDefault();
+        console.log(marca );
+        if( Object.keys(marca).length ===0  ){
+            //mandar mensaje de validación
+            setError(true);
+            return;
+        }
+
+        if(Object.keys(marca.nombre).length ===0){
+             //mandar mensaje de validación
+             setError(true);
+             return;
+        }
         let url ;
         let metodo ;
         console.log(esNuevo);
@@ -136,11 +145,6 @@ const Marca = (props) => {
         //mandar mensaje de exito    
         const MySwal = withReactContent(Swal)
 
-        Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-          )
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -152,7 +156,6 @@ const Marca = (props) => {
         }).then(() => {
            navigate('/catalogomarcas');
         })     
-        
     }
 
     
@@ -223,6 +226,14 @@ const Marca = (props) => {
                             Guardar
                         </button> 
                 </StyleDivButton>
+                {
+                    error ?  <Error 
+                    tipo='alert alert-danger'
+                    mensaje='El nombre de la marca es obligatorio'
+                    ></Error>
+                    :
+                    null
+                }
             </StyleForm>
             </Fragment>
         

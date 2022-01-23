@@ -5,6 +5,7 @@ import { faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 import { useNavigate  } from 'react-router-dom';
 import MarcaTable from './marcaTable';
 import Spinner from '../spinner/spinner';
+import Error from '../error/error';
 
 const StyleHeader = styled.label`
     
@@ -38,6 +39,7 @@ const CatalogoMarcas = () =>{
    
     const [marcas,setMarcas] = useState([{}]);
     const [cargando, setCargando] = useState(true);
+    const [error,setError] = useState(false);
     const navigate = useNavigate();
 
     const agregarModificarMarca = (e) => {
@@ -56,12 +58,14 @@ const CatalogoMarcas = () =>{
                 setMarcas(response);
             }catch(error){
                 console.log(error);
+                console.log('Ocurrio un error');
+                setError(true);
             }
         };
         consultarMarcas();
         setTimeout(() => {
             setCargando(!cargando);
-        }, 1000);
+        }, 200);
         
     },[]);
 
@@ -72,44 +76,54 @@ const CatalogoMarcas = () =>{
                 <Spinner />
             
             :
-
-                <Fragment>
-                    <StyleDivEncabezado className='container'>
-                        <div className='row'>
-                            <div className='col-8'>    
-                                <StyleHeader>Catálogo de marcas</StyleHeader>
+            <>
+                {error ? 
+                    <Error 
+                    tipo='alert alert-danger'
+                    mensaje='Ocurrió un error al consultar las marcas'
+                    />
+                    : 
+                        <Fragment>
+                        <StyleDivEncabezado className='container'>
+                            <div className='row'>
+                                <div className='col-8'>    
+                                    <StyleHeader>Catálogo de marcas</StyleHeader>
+                                </div>
+                                <div className='col-4'>   
+                                    <StyleBtnAgregar className='btn btn-secondary'
+                                        onClick={agregarModificarMarca} > 
+                                        <FontAwesomeIcon icon={faPlusCircle} className='mr-2' />
+                                        Agregar
+                                    </StyleBtnAgregar>
+                                </div>
                             </div>
-                            <div className='col-4'>   
-                                <StyleBtnAgregar className='btn btn-secondary'
-                                    onClick={agregarModificarMarca} > 
-                                    <FontAwesomeIcon icon={faPlusCircle} className='mr-2' />
-                                    Agregar
-                                </StyleBtnAgregar>
-                            </div>
-                        </div>
-                    </StyleDivEncabezado>
-                    <StyleTable className="container table table-borderless table-hover ">
-                    
-                        <thead height="10" >
-                            <tr>
-                                <th width="20" >ID</th>
-                                <th width="100" >Marca</th>
-                                <th width="20">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                marcas.map( marca => (
-                                    <MarcaTable 
-                                        key={marca.id}
-                                        marca={marca}
-                                    />
-                                ))
-                            }
-                        </tbody>
-                    </StyleTable>
-                </Fragment>
+                        </StyleDivEncabezado>
+                        <StyleTable className="container table table-borderless table-hover ">
+                        
+                            <thead height="10" >
+                                <tr>
+                                    <th width="20" >ID</th>
+                                    <th width="100" >Marca</th>
+                                    <th width="20">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    marcas.map( marca => (
+                                        <MarcaTable 
+                                            key={marca.id}
+                                            marca={marca}
+                                        />
+                                    ))
+                                }
+                            </tbody>
+                        </StyleTable>
+                    </Fragment>
+                }
+                </>
+                
             }
+            
         </>
     );
 }

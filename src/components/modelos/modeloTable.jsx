@@ -11,8 +11,11 @@ const StyledButton = styled.button`
     font-size: .8rem;
 `;
 
-const MarcaTable = ({marca}) => {
+
+
+const ModeloTable = ({modelo}) => {
     const navigate = useNavigate();
+    console.log(modelo);
 
     const eliminarRegistro= (e) =>{
         e.preventDefault();
@@ -44,7 +47,7 @@ const MarcaTable = ({marca}) => {
         try {
             
             let request;
-            const url =  `http://localhost:3004/marca/${marca.id}`;
+            const url =  `http://localhost:3004/modelo/${modelo.id}`;
     
             request = await fetch(url,{
                 method:'DELETE'
@@ -82,11 +85,13 @@ const MarcaTable = ({marca}) => {
 
     return (
         <tr >
-            <td >{marca.id}</td>
-            <td >{marca.nombre}</td>
+            <td >{modelo.id}</td>
+            <td >{modelo.marca}</td>
+            <td >{modelo.nombre}</td>
+            <td >{modelo.tipo}</td>
             <td >
                 <StyledButton className='btn btn-primary' name="editar"
-                    onClick={() => navigate(`/marcaacciones/${marca.id}`)}
+                    onClick={() => navigate(`/modeloacciones/${modelo.id}`)}
                 >
                     <FontAwesomeIcon icon={faEdit} className='mr-2' />
                     Editar
@@ -102,4 +107,4 @@ const MarcaTable = ({marca}) => {
     );
 }
  
-export default MarcaTable;
+export default ModeloTable;
