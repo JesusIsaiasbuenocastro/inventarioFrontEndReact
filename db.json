@@ -11,7 +11,7 @@
   "inventario": [],
   "marca": [
     {
-      "nombre": "HONDA 82",
+      "nombre": "HONDA 829",
       "id": 1
     },
     {
@@ -41,6 +41,10 @@
     {
       "nombre": "Honda 2",
       "id": 9
+    },
+    {
+      "nombre": "kia 3",
+      "id": 10
     }
   ],
   "modelo": [
@@ -60,7 +64,7 @@
       "tipo": 1,
       "nombre": "Altima",
       "marca": 5,
-      "id": 2
+      "id": 3
     }
   ],
   "tipo": [

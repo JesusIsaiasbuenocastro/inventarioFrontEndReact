@@ -51,10 +51,13 @@ const CatalogoMarcas = () =>{
         const consultarMarcas =  async () =>{
             try{
                 let respuesta;
-                const url =  'http://localhost:3004/marca';
-        
+               // const url =  'http://localhost:3004/marca';
+               const url =  'http://localhost:4000/api/marca';
+                
                 respuesta = await fetch(url);
                 const response = await respuesta.json();
+                
+                console.log(response);
                 setMarcas(response);
             }catch(error){
                 console.log(error);

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit,faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { useState } from 'react/cjs/react.development';
 
 
 const StyledButton = styled.button`
@@ -12,6 +13,8 @@ const StyledButton = styled.button`
 `;
 
 const MarcaTable = ({marca}) => {
+
+
     const navigate = useNavigate();
 
     const eliminarRegistro= (e) =>{
@@ -44,7 +47,7 @@ const MarcaTable = ({marca}) => {
         try {
             
             let request;
-            const url =  `http://localhost:3004/marca/${marca.id}`;
+            const url =  `http://localhost:4000/api/marca/${marca.id}`;
     
             request = await fetch(url,{
                 method:'DELETE'

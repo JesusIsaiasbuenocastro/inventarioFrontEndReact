@@ -15,7 +15,6 @@ const StyledButton = styled.button`
 
 const ModeloTable = ({modelo}) => {
     const navigate = useNavigate();
-    console.log(modelo);
 
     const eliminarRegistro= (e) =>{
         e.preventDefault();
@@ -47,7 +46,7 @@ const ModeloTable = ({modelo}) => {
         try {
             
             let request;
-            const url =  `http://localhost:3004/modelo/${modelo.id}`;
+            const url =  `http://localhost:4000/api/modelo/${modelo.id}`;
     
             request = await fetch(url,{
                 method:'DELETE'
@@ -86,9 +85,9 @@ const ModeloTable = ({modelo}) => {
     return (
         <tr >
             <td >{modelo.id}</td>
-            <td >{modelo.marca}</td>
+            <td >{!modelo.DataMarca[0] ? '' :  modelo.DataMarca[0].nombre}</td>
             <td >{modelo.nombre}</td>
-            <td >{modelo.tipo}</td>
+            <td >{!modelo.DataTipo[0] ? '' :  modelo.DataTipo[0].nombretipo}</td>
             <td >
                 <StyledButton className='btn btn-primary' name="editar"
                     onClick={() => navigate(`/modeloacciones/${modelo.id}`)}

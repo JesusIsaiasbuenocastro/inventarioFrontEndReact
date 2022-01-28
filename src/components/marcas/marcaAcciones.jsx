@@ -45,7 +45,7 @@ const StyleDivButton = styled.div`
 `;
 
 
-const Marca = (props) => {
+const Marca = () => {
 
     const {idMarca} = useParams();
     const navigate = useNavigate();
@@ -62,11 +62,14 @@ const Marca = (props) => {
         const obtenerDatosMarca = async () => {
             try {
                 console.log('Entró a consultar');
-                const url =`http://localhost:3004/marca/${idMarca}`;
-                const respuesta = await fetch(url);
-                const resultado = await respuesta.json();
+                const url =`http://localhost:4000/api/marca/${idMarca}`;
+
+                let request = await fetch(url);
+                
+               // const respuesta = await fetch(url);
+                const resultado = await request.json();
                
-                if(respuesta.status !== 200){
+                if(resultado.status !== 200){
                     console.log('Es nuevo');
                     guardarEsNuevo(true);
                 }
@@ -89,6 +92,7 @@ const Marca = (props) => {
     //useState de para guardar la marca
     const actualizarMarca = (e) => {
         e.preventDefault();
+        console.log(marca);
         guardarMarca({
             ...marca,
             [e.target.name] : e.target.value
@@ -99,14 +103,15 @@ const Marca = (props) => {
     //Guardar registro
     const guardarRegistro = async (e)  => {
         e.preventDefault();
-        console.log(marca );
+        console.log(marca.id );
+        console.log(marca.nombre );
         if( Object.keys(marca).length ===0  ){
             //mandar mensaje de validación
             setError(true);
             return;
         }
 
-        if(Object.keys(marca.nombre).length ===0){
+        if(Object.keys(marca.nombre.trim()).length ===0){
              //mandar mensaje de validación
              setError(true);
              return;
@@ -115,11 +120,11 @@ const Marca = (props) => {
         let metodo ;
         console.log(esNuevo);
         if(!esNuevo){
-            url =  `http://localhost:3004/marca/${marca.id}`;
+            url =  `http://localhost:4000/api/marca/${marca.id}`;
             metodo = 'PUT';
             console.log('Se actualizo');
         }else{
-            url =  'http://localhost:3004/marca';
+            url =  'http://localhost:4000/api/marca';
             metodo ='POST';
             console.log('Se inserto');
         }
@@ -198,7 +203,7 @@ const Marca = (props) => {
                                 className="form-control" 
                                 id="id" 
                                 onChange={actualizarMarca}
-                                value={marca.id }
+                                value={ marca.id  ? marca.id : ''   }
                                 placeholder='Id de la marca'
                             />
                         </div>

@@ -41,28 +41,28 @@ const CatalogoModelos = () => {
 
     const[error,setError] = useState(false);
     const[cargando, setCargando] = useState(true);
-    const[modelos,setModelo] = useState([{}]);
-    const[tipo,setTipo] = useState([{}]);
+    const[modelos,setModelo] = useState([{
+        tipo: '',
+      nombre: '',
+      marca: '',
+      id: ''
+    }]);
+    const[tipos,setTipo] = useState([{}]);
+    const[marcas,setMarca] = useState({});
+
     const navigate = useNavigate();
+    
+
     useEffect(()=>{
         const consultarModelo =  async () =>{
             try{
                 let respuesta;
-                let url =  'http://localhost:3004/modelo';
+                let url =  'http://localhost:4000/api/modelo';
         
                 respuesta = await fetch(url);
-                let response = await respuesta.json();
-                console.log(response);
-                setModelo(response);
-                //Obtener los tipos de autos 
-                url =  'http://localhost:3004/tipo';
-    
-                respuesta = await fetch(url);
-                response = await respuesta.json();
-                console.log(response);
-                setTipo(response);
-
-                actualizarDatosArreglo(response)
+                let responseModelo = await respuesta.json();
+                //console.log(responseModelo);
+                setModelo(responseModelo);
 
             }catch(error){
                 console.log(error);
@@ -71,15 +71,13 @@ const CatalogoModelos = () => {
             }
         };
         consultarModelo();
+
         setTimeout(() => {
             setCargando(!cargando);
-        }, 200);
+        }, 1000);
         
     },[]);
 
-    const actualizarDatosArreglo = (tipo) =>{
-        modelos.forEach( )
-    }
 
     const agregarModificarModelo = (e) => {
         e.preventDefault();
@@ -128,7 +126,9 @@ const CatalogoModelos = () => {
                         </thead>
                         <tbody>
                             {
+                                
                                 modelos.map( modelo => (
+                                    
                                     <ModeloTable 
                                         key={modelo.id}
                                         modelo={modelo}
