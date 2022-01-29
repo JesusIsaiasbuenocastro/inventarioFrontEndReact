@@ -61,19 +61,16 @@ const Marca = () => {
     useEffect(() => {
         const obtenerDatosMarca = async () => {
             try {
-                console.log('Entró a consultar');
+                //console.log('Entró a consultar');
                 const url =`http://localhost:4000/api/marca/${idMarca}`;
 
-                let request = await fetch(url);
-                
+                let response = await fetch(url);
                // const respuesta = await fetch(url);
-                const resultado = await request.json();
-               
-                if(resultado.status !== 200){
-                    console.log('Es nuevo');
+                const resultado = await response.json();
+                if(response.status !== 200){
+                    //console.log('Es nuevo');
                     guardarEsNuevo(true);
                 }
-                console.log(resultado);
                 guardarMarca(resultado);
                
                 
@@ -103,8 +100,6 @@ const Marca = () => {
     //Guardar registro
     const guardarRegistro = async (e)  => {
         e.preventDefault();
-        console.log(marca.id );
-        console.log(marca.nombre );
         if( Object.keys(marca).length ===0  ){
             //mandar mensaje de validación
             setError(true);
@@ -118,15 +113,12 @@ const Marca = () => {
         }
         let url ;
         let metodo ;
-        console.log(esNuevo);
         if(!esNuevo){
             url =  `http://localhost:4000/api/marca/${marca.id}`;
             metodo = 'PUT';
-            console.log('Se actualizo');
         }else{
             url =  'http://localhost:4000/api/marca';
             metodo ='POST';
-            console.log('Se inserto');
         }
 
         try {

@@ -6,7 +6,7 @@ import Header from '../header/header';
 import NavBar from '../navbar/navbar';
 
 const StyleDiv = styled.div`
-    width: 80rem;
+    width: 100%;
 	max-width: 1200rem;
 `;
 

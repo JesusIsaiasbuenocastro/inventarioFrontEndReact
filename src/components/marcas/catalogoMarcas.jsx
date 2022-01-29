@@ -57,11 +57,9 @@ const CatalogoMarcas = () =>{
                 respuesta = await fetch(url);
                 const response = await respuesta.json();
                 
-                console.log(response);
                 setMarcas(response);
             }catch(error){
                 console.log(error);
-                console.log('Ocurrio un error');
                 setError(true);
             }
         };

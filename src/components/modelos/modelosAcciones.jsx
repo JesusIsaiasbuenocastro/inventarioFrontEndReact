@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Spinner from '../spinner/spinner';
 import Error from '../error/error';
+import OpcionesSelect from './opcionesSelect';
 
 
 
@@ -15,7 +16,7 @@ const StyleForm = styled.form`
     font-size: .8rem;
     border-radius: 20px;
     width: 30rem;
-    height: 20rem;
+    height: 25rem;
     box-shadow: 7px 7px 15px PowderBlue; 
     margin-top: 2rem;
     margin-bottom: 25px;
@@ -51,38 +52,69 @@ const ModeloAcciones = () => {
     const navigate = useNavigate();
 
     const [error , setError] = useState(false);
-    const [esNuevo , guardarEsNuevo] = useState(false);
-    const [modelo, guardarModelo] = useState({
+    const [esNuevo , setEsNuevo] = useState(false);
+    const [cargando, setCargando] = useState(true);
+    const [modelo, setModelo] = useState({
         id: '',
         nombre: '',
-        marca: '',
-        tipo:''
+        marca: '-1',
+        tipo:'-1'
     });
-    const [cargando, setCargando] = useState(true);
-
+    const [marcas , setMarcas] = useState([{}]);
+    const [tipos , setTipos] = useState([{}]);
+    
     //validar si es un registro nuevo consultar el dato
     useEffect(() => {
         const obtenerDatosModelo = async () => {
             try {
-                console.log('Entró a consultar');
-                console.log(idModelo);
-                const url =`http://localhost:4000/api/modelo/${idModelo}`;
+               
+               //Consultar el modelo a mostrar
+                let url =`http://localhost:4000/api/modelo/${idModelo}`;
 
-                let request = await fetch(url);
+                let response = await fetch(url);
                 
-               // const respuesta = await fetch(url);
-                const resultado = await request.json();
-               
-                if(resultado.status !== 200){
-                    console.log('Es nuevo');
-                    guardarEsNuevo(true);
+               // let respuesta = await fetch(url);
+                let resultado = await response.json();
+                //console.log(resultado.status);
+
+                if(response.status !== 200){
+                    //console.log('Es nuevo');
+                    setEsNuevo(true);
+                } 
+                //console.log(resultado);
+                setModelo(resultado);
+
+
+                //Consultar tipos de autos
+                 //Consultar el modelo a mostrar
+                 url =`http://localhost:4000/api/tipo`;
+
+                 response = await fetch(url);
+                 
+                // const respuesta = await fetch(url);
+                 resultado = await response.json();
+                 //console.log(resultado.status);
+ 
+                 if(response.status === 200){
+                    setTipos(resultado);
+                 } 
+                 
+                 
+                 //Consultar el modelo a mostrar
+                 url =`http://localhost:4000/api/marca`;
+
+                 response = await fetch(url);
+                 
+                // const respuesta = await fetch(url);
+                 resultado = await response.json();
+                 //console.log(resultado.status);
+ 
+                 if(response.status === 200){
+                    setMarcas(resultado);
                 }
-                console.log(resultado);
-                guardarModelo(resultado);
-               
-                
+
             } catch (error) {
-                console.log(error);
+                //console.log(error);
             }
 
             setTimeout(() => {
@@ -96,8 +128,8 @@ const ModeloAcciones = () => {
     //useState de para guardar la modelo
     const actualizarModelo = (e) => {
         e.preventDefault();
-        console.log(modelo);
-        guardarModelo({
+        //console.log(modelo);
+        setModelo({
             ...modelo,
             [e.target.name] : e.target.value
         })
@@ -107,30 +139,39 @@ const ModeloAcciones = () => {
     //Guardar registro
     const guardarRegistro = async (e)  => {
         e.preventDefault();
-        console.log(modelo.id );
-        console.log(modelo.nombre );
-        if( Object.keys(modelo).length ===0  ){
+        if( Object.keys(modelo).length < 3 ){
             //mandar mensaje de validación
             setError(true);
             return;
         }
 
-        if(Object.keys(modelo.nombre.trim()).length ===0){
+        //console.log(Object.keys(modelo.tipo));
+        //console.log(Object.keys(modelo));
+        
+        //Validar que seleccione los datos correctos
+        if(Object.keys(modelo.nombre.trim()).length ===0
+            || modelo.tipo === "-1"
+            || modelo.marca === "-1"  )
+          {
              //mandar mensaje de validación
              setError(true);
              return;
-        }
+            }
+        
+        
+        setError(false);
+            
         let url ;
         let metodo ;
         console.log(esNuevo);
         if(!esNuevo){
             url =  `http://localhost:4000/api/modelo/${modelo.id}`;
             metodo = 'PUT';
-            console.log('Se actualizo');
+            //console.log('Se actualizo');
         }else{
             url =  'http://localhost:4000/api/modelo';
             metodo ='POST';
-            console.log('Se inserto');
+            //console.log('Se inserto');
         }
 
         try {
@@ -214,6 +255,26 @@ const ModeloAcciones = () => {
                     :null
                 }
                 <div className="form-group">
+                    <StyleDiv ><label>Marca:</label></StyleDiv>
+                <select 
+                    id="marca"
+                    name="marca"
+                    onChange={actualizarModelo}
+                    value={modelo.DataMarca  ? modelo.DataMarca[0].id : "-1"  }
+                    className='custom-select' >
+                    <option value="-1"  >Seleccione una marca</option>
+                    {
+                        marcas.map(marca => 
+                            <OpcionesSelect 
+                                key={marca.id}
+                                opciones={marca}
+                            />
+                        )    
+                    }
+
+                </select>
+                </div>
+                <div className="form-group">
                     <StyleDiv ><label>Nombre:</label></StyleDiv>
                     <input type="text" 
                         name="nombre"
@@ -223,9 +284,28 @@ const ModeloAcciones = () => {
                         value={modelo.nombre}
                         onChange={actualizarModelo} />
                 </div>
-            
+                
+                <div className="form-group">
+                    <StyleDiv ><label>Tipo:</label></StyleDiv>
+                <select 
+                    id="tipo"
+                    name="tipo"
+                    className='custom-select'
+                    onChange={actualizarModelo}
+                    value={modelo.DataTipo ? modelo.DataTipo[0].id : "-1"  }
+                    >
+                    <option value="-1">Seleccione un tipo</option>
+                    {
+                        tipos.map(tipo => 
+                                <OpcionesSelect 
+                                    key={tipo.id}
+                                    opciones={tipo}
+                                />
+                        )    
+                    }
+                </select>
+                </div>
                 <StyleDivButton className="form-group">
-
                     <button type="submit" 
                         name="btnGuardar"
                         id="btnGuardar"
@@ -238,14 +318,13 @@ const ModeloAcciones = () => {
                 {
                     error ?  <Error 
                     tipo='alert alert-danger'
-                    mensaje='El nombre del modelo es obligatorio'
+                    mensaje='Todos los campos son obligatorios'
                     ></Error>
                     :
                     null
                 }
             </StyleForm>
             </Fragment>
-        
         }
         </Fragment>
      );

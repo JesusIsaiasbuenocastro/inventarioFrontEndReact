@@ -53,9 +53,7 @@ const ModeloTable = ({modelo}) => {
               
             });
     
-            const resultado = await request.json();
-            console.log(request);
-            console.log(resultado);
+            await request.json();
 
             //mandar mensaje de eliminado exitosamente
              //mandar mensaje de exito    
@@ -87,7 +85,7 @@ const ModeloTable = ({modelo}) => {
             <td >{modelo.id}</td>
             <td >{!modelo.DataMarca[0] ? '' :  modelo.DataMarca[0].nombre}</td>
             <td >{modelo.nombre}</td>
-            <td >{!modelo.DataTipo[0] ? '' :  modelo.DataTipo[0].nombretipo}</td>
+            <td >{!modelo.DataTipo[0] ? '' :  modelo.DataTipo[0].nombre}</td>
             <td >
                 <StyledButton className='btn btn-primary' name="editar"
                     onClick={() => navigate(`/modeloacciones/${modelo.id}`)}

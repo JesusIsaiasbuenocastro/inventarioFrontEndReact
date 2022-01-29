@@ -54,9 +54,7 @@ const MarcaTable = ({marca}) => {
               
             });
     
-            const resultado = await request.json();
-            console.log(request);
-            console.log(resultado);
+            await request.json();
 
             //mandar mensaje de eliminado exitosamente
              //mandar mensaje de exito    

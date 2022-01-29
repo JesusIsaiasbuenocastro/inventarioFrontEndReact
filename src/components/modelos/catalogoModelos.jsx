@@ -61,12 +61,9 @@ const CatalogoModelos = () => {
         
                 respuesta = await fetch(url);
                 let responseModelo = await respuesta.json();
-                //console.log(responseModelo);
                 setModelo(responseModelo);
 
             }catch(error){
-                console.log(error);
-                console.log('Ocurrio un error');
                 setError(true);
             }
         };
