@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Spinner from '../spinner/spinner';
 import Error from '../error/error';
-import OpcionesSelect from './opcionesSelect';
+import OpcionesSelect from '../genericos/opcionesSelect';
 
 
 
@@ -132,6 +132,7 @@ const ModeloAcciones = () => {
         setModelo({
             ...modelo,
             [e.target.name] : e.target.value
+            
         })
     }
 
@@ -139,12 +140,13 @@ const ModeloAcciones = () => {
     //Guardar registro
     const guardarRegistro = async (e)  => {
         e.preventDefault();
+        
         if( Object.keys(modelo).length < 3 ){
             //mandar mensaje de validación
             setError(true);
             return;
         }
-
+        
         //console.log(Object.keys(modelo.tipo));
         //console.log(Object.keys(modelo));
         
@@ -305,6 +307,15 @@ const ModeloAcciones = () => {
                     }
                 </select>
                 </div>
+                
+                {
+                    error ?  <Error 
+                    tipo='alert alert-danger'
+                    mensaje='Todos los campos son obligatorios'
+                    ></Error>
+                    :
+                    null
+                }
                 <StyleDivButton className="form-group">
                     <button type="submit" 
                         name="btnGuardar"
@@ -315,14 +326,6 @@ const ModeloAcciones = () => {
                             Guardar
                         </button> 
                 </StyleDivButton>
-                {
-                    error ?  <Error 
-                    tipo='alert alert-danger'
-                    mensaje='Todos los campos son obligatorios'
-                    ></Error>
-                    :
-                    null
-                }
             </StyleForm>
             </Fragment>
         }

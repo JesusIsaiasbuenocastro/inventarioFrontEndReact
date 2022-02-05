@@ -10,6 +10,7 @@ import CatalogoMarcas from './components/marcas/catalogoMarcas';
 import MarcaAcciones from './components/marcas/marcaAcciones';
 import CatalogoModelos from './components/modelos/catalogoModelos';
 import Inventario from './components/inventario/inventario';
+import InventarioAcciones from './components/inventario/inventarioAcciones';
 import Login from './components/login/login';
 import NuevoUsuario from './components/login/NuevoUsuario';
 import ModeloAcciones from './components/modelos/modelosAcciones';
@@ -40,6 +41,11 @@ function App() {
             <Route path='/inventario' element={<Layout/>}>
               <Route index element ={<Inventario/>} />
             </Route>
+            <Route path='/inventarioacciones/:idInventario' element={<Layout/>}>
+              <Route index element ={<InventarioAcciones/>} />
+              <Route path =":idInventario" element ={<InventarioAcciones/>}/>
+            </Route>
+
             <Route path='/nuevousuario' element={<NuevoUsuario/>}>
               <Route index element ={<NuevoUsuario/>} />
             </Route>

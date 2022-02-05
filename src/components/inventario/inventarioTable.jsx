@@ -11,7 +11,8 @@ const StyledButton = styled.button`
     font-size: .8rem;
 `;
 
-const ModeloTable = ({modelo}) => {
+
+const InventarioTable = ({inventario}) => {
     const navigate = useNavigate();
 
     const eliminarRegistro= (e) =>{
@@ -44,7 +45,7 @@ const ModeloTable = ({modelo}) => {
         try {
             
             let request;
-            const url =  `http://localhost:4000/api/modelo/${modelo.id}`;
+            const url =  `http://localhost:4000/api/inventario/${inventario.id}`;
     
             request = await fetch(url,{
                 method:'DELETE'
@@ -76,17 +77,19 @@ const ModeloTable = ({modelo}) => {
         }
 
     }
-
-
     return (
         <tr >
-            <td >{modelo.id}</td>
-            <td >{!modelo.DataMarca[0] ? '' :  modelo.DataMarca[0].nombre}</td>
-            <td >{modelo.nombre}</td>
-            <td >{!modelo.DataTipo[0] ? '' :  modelo.DataTipo[0].nombre}</td>
+            <td >{inventario.id}</td>
+            <td >{!inventario.DataMarca[0] ? '' :  inventario.DataMarca[0].nombre}</td>
+            <td >{!inventario.DataModelo[0] ? '' :  inventario.DataModelo[0].nombre}</td>
+            <td >{inventario.year}</td>
+            <td >{!inventario.DataTipo[0] ? '' :  inventario.DataTipo[0].nombre}</td>
+            <td >{inventario.color}</td>
+            <td >{inventario.cantidad}</td>
+            <td >{inventario.kilometraje}</td>
             <td >
                 <StyledButton className='btn btn-primary' name="editar"
-                    onClick={() => navigate(`/modeloacciones/${modelo.id}`)}
+                    onClick={() => navigate(`/inventarioacciones/${inventario.id}`)}
                 >
                     <FontAwesomeIcon icon={faEdit} className='mr-2' />
                     Editar
@@ -102,4 +105,4 @@ const ModeloTable = ({modelo}) => {
     );
 }
  
-export default ModeloTable;
+export default InventarioTable;
