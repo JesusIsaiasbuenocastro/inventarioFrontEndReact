@@ -88,19 +88,10 @@ const InventarioAcciones = () => {
                     setEsNuevo(true);
 
                 } else{
-                    console.log('Entro a consultar el modelo')
-                    console.log(marcaSeleccionada);
-                    console.log(resultado.DataMarca[0].id);
-
                     setMarcaSeleccionada({
                         ...marcaSeleccionada,
                         marca: resultado.DataMarca[0].id
                     });
-
-
-                    console.log('Entro a consultar el modelo')
-                    console.log(modeloSeleccionado);
-                    console.log(resultado.DataModelo[0].id);
 
                     setModeloSeleccionado({
                         ...modeloSeleccionado,
@@ -175,9 +166,6 @@ const InventarioAcciones = () => {
     },[]);
 
     useEffect(() => {
-        console.log('Entro al useefect2')
-        console.log(marcaSeleccionada.marca)
-        console.log(marcaSeleccionada.marca)
       //  setMarcaSeleccionada({ marca: inventario.marca});
         const obtenerModelos= async () => {
        
@@ -298,6 +286,7 @@ const InventarioAcciones = () => {
             });
     
             const resultado = await request.json();
+            console.log(resultado);
            
             
         } catch (error) {
